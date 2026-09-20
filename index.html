@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surpresa para você 💗</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #ffe8f0, #f8cbdc);
+      font-family: Arial, sans-serif;
+    }
+    .container { width: 100%; max-width: 650px; }
+    .lock-screen {
+      background: rgba(255, 255, 255, .92);
+      padding: 35px 25px;
+      border-radius: 25px;
+      box-shadow: 0 10px 35px rgba(130, 50, 90, .2);
+      text-align: center;
+    }
+    h1 { color: #7d2852; font-size: 28px; margin: 0 0 25px; }
+    input {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e5a2bd;
+      border-radius: 12px;
+      font-size: 18px;
+      text-align: center;
+      outline: none;
+    }
+    input:focus { border-color: #c94f83; }
+    button {
+      width: 100%;
+      margin-top: 15px;
+      padding: 15px;
+      border: 0;
+      border-radius: 12px;
+      background: #c94f83;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover { background: #ad3c6d; }
+    .error {
+      min-height: 25px;
+      margin-top: 15px;
+      color: #c62828;
+      font-weight: bold;
+    }
+    .letter { display: none; animation: aparecer 1s ease; }
+    .letter img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 10px 35px rgba(130, 50, 90, .3);
+    }
+    @keyframes aparecer {
+      from { opacity: 0; transform: scale(.9) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="lock-screen" id="lockScreen">
+      <h1>Essa carta é só para você 💗</h1>
+      <form id="form">
+        <input id="senha" type="password" maxlength="10" placeholder="Digite a senha" autocomplete="off" required>
+        <button type="submit">Abrir carta 💌</button>
+      </form>
+      <div class="error" id="errorMessage" aria-live="polite"></div>
+    </section>
+
+    <section class="letter" id="letter">
+      <img src="assets/carta.jpg.jpeg" alt="Carta de amor">
+    </section>
+  </main>
+
+  <script>
+    // Para alterar a senha no futuro, mude somente esta linha.
+    const SENHA_CORRETA = "10/09/2026";
+
+    const form = document.getElementById("form");
+    const senha = document.getElementById("senha");
+    const lockScreen = document.getElementById("lockScreen");
+    const letter = document.getElementById("letter");
+    const errorMessage = document.getElementById("errorMessage");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      if (senha.value.trim() === SENHA_CORRETA) {
+        lockScreen.style.display = "none";
+        letter.style.display = "block";
+        errorMessage.textContent = "";
+        senha.value = "";
+      } else {
+        errorMessage.textContent = "Hmm... acho que essa não é a senha 💗";
+        senha.value = "";
+        senha.focus();
+      }
+    });
+  </script>
+</body>
+</html>
